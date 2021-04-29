@@ -1,30 +1,41 @@
 const path = require('path');
+const RefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 
 module.exports = {
-    name : 'wordrelay-setting',
-    mode: 'development', //실서비스에서는 production
-    devtool: 'eval',
+    mode: 'development',
+    devtool: 'eval',    //hidden-source-map
     resolve: {
-        extensions: ['.js', '.jsx']
+        extensions: ['.jsx', '.js'],
     },
-
     entry: {
-        app: ['./client'],
-    },  //입력
-
+        app: './client',
+    },
     module: {
         rules: [{
-           test: /\.jsx?$/,
-           loader: 'babel-loader',
-           options: {
-               presets: ['@babel/env', '@babel/react'],
-               plugins: ['@babel/plugin-proposal-class-properties'],
-           },
+            test: /\.jsx?$/,
+            loader: 'babel-loader',
+            options: {
+                presets: [
+                    '@babel/preset-env',
+                    '@babel/preset-react'
+                ],
+                plugins: [
+                    '@babel/plugin-proposal-class-properties',
+                    'react-refresh/babel'
+                ],
+            },
         }],
     },
-
+    plugins: [
+        new RefreshWebpackPlugin()
+    ],
     output: {
-        path: path.join(__dirname, 'dist'), // \lecture\dist
-        filename: 'app.js'
-    },  //출력
+        filename: 'app.js',
+        path: path.join(__dirname, 'dist'),
+        publicPath: '/dist/',
+    },
+    devServer: {
+        publicPath: '/dist/',
+        hot: true,
+    },
 };
