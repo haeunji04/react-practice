@@ -1,5 +1,6 @@
 const React = require('react');
 const { useState, useRef } = React;
+// const Try = './Try';
 
 // 숫자 네 개를 겹치지 않게 만들어내는 함수
 const getMembers = () => {
@@ -21,6 +22,14 @@ const NumberBaseball = () => {
 
     }
 
+    const arrayData = [
+        { like: 'like1', word: '얍' },
+        { like: 'like2', word: '욥' },
+        { like: 'like3', word: '윱' },
+        { like: 'like4', word: '왂' },
+        { like: 'like5', word: '웎' }
+    ];
+
     return (
         <>
             <form onSubmit={onSubmitForm}>
@@ -29,13 +38,19 @@ const NumberBaseball = () => {
             <div>
                 시도: {tries.length}
                 <ul>
-                    {['like1', 'like2', 'like3', 'like4', 'like5'].map( (v) => {
+                    {arrayData.map( (v, i) => {
                         return (
-                            <li>{v}</li>
+                            <li key={v.like + v.word}>
+                                <b>{v.like}</b> - {v.word} : {i}
+                                <div>컨텐츠</div>
+                                <div>컨텐츠1</div>
+                                <div>컨텐츠2</div>
+                                <div>컨텐츠3</div>
+                            </li>
                         );
                     })}
-
                 </ul>
+
             </div>
         </>
     )
